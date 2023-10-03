@@ -12,9 +12,19 @@ const Form = () => {
         setUserPassword(event.target.value)
     }
 
-    const handleValidatePassword = (event) => {
-        event.preventDefault()
-        
+    const addPasswordPoints = () => {
+        if(userPassword.length > 12) {
+            setPasswordStrength((prevState) => prevState + 3)
+        } else if(userPassword.length >= 9 && userPassword <= 12) {
+            setPasswordStrength((prevState) => prevState + 2)
+        } else if (userPassword.length >= 7 && userPassword <= 8) {
+            setPasswordStrength((prevState) => prevState + 1)
+        } else {
+            setPasswordStrength((prevState) => prevState + 0)
+        }
+    }
+
+    const getTotalPasswordPoints = () => {
         if(passwordStrength > 10) {
             console.log('Muy fuerte')
         } else if(passwordStrength >= 8 && passwordStrength <= 9) {
@@ -26,6 +36,14 @@ const Form = () => {
         } else {
             console.log('Muy debil')
         }
+    }
+
+    const handleValidatePassword = (event) => {
+        event.preventDefault()
+
+        addPasswordPoints()
+        getTotalPasswordPoints()
+        
     }
 
   return (
